@@ -5,6 +5,19 @@
   box-sizing: border-box;
 }
 
+/* #region Fonts */
+:root {
+    --heading-font: "Merriweather", serif;
+    --body-font: "Roboto", sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading-font);
+}
+p, a, span {
+  font-family: var(--body-font);
+}
+/* #endregion */
+
 /* #region Body*/
 
 body>div {
@@ -53,6 +66,10 @@ nav ul {
   font-weight: bold;
   padding: 0.5rem;
 }
+nav ul a {
+  text-decoration: none;
+  color: white; 
+}
 /* #endregion*/
 
 /* #region Banner*/
@@ -63,6 +80,7 @@ nav ul {
 }
 .banner img {
   width: 100%;
+  max-width: 700px;
   height: auto;
 }
 .banner-details {
@@ -128,7 +146,50 @@ nav ul {
 .reviews {
   background-color: white;
 }
+.reviews ul li {
+  padding: 10px 0;
+}
 /* #endregion*/
+
+/* #region Vehicles by classification */ 
+#inv-display {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  row-gap: 20px;
+  column-gap: 10px;
+  
+  list-style-type: none;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+#inv-display li a {
+  text-decoration: none;
+  color: #097795;
+}
+#inv-display li > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 150px;
+  margin: auto 0;
+}
+#inv-display li {
+  width: 300px;
+  padding: 10px;
+}
+#inv-display li:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px);
+}
+#inv-display li h2 {
+  margin: 10px 0;
+}
+/* #endregion*/
+
 
 /* MEDIUM VIEW */
 @media (min-width: 500px) {
@@ -152,7 +213,7 @@ nav ul {
 /* LARGER VIEW */
 @media (min-width: 800px) {
   body>div {
-    width: 800px;
+    width: 1200px;
   }
   .vehicle-info {
     flex-direction: row;
