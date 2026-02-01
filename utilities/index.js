@@ -47,7 +47,7 @@ Util.buildInventoryDetailsGrid = async function(data){
     grid += '<div id="inv-details">'
 
     grid += '<div id="details-picture">'
-    grid += '<img src="' + vehicle.inv_image + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" /></a>'
+    grid += '<img src="' + vehicle.inv_image + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors">'
     grid += '</div>'
     
     grid += '<div id="details-info">'
