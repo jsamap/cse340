@@ -34,6 +34,56 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+
+/* **************************************
+* Build the Inventory Details view HTML
+* ************************************ */
+Util.buildInventoryDetailsGrid = async function(data){
+  let grid
+  if(data.length > 0){
+    const vehicle = data[0]
+    
+    grid = '<span>' + vehicle.inv_description + '</span>'
+    grid += '<div id="inv-details">'
+
+    grid += '<div id="details-picture">'
+    grid += '<img src="' + vehicle.inv_image + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" /></a>'
+    grid += '</div>'
+    
+    grid += '<div id="details-info">'
+    
+    grid += '<div id="details-info-labels">'
+    grid += '<p>Make: </p>' 
+    grid += '<p>Model: </p>' 
+    grid += '<p>Year: </p>' 
+    grid += '<p>Color: </p>' 
+    grid += '<p>Type: </p>' 
+    grid += '<p>Miles: </p>' 
+    grid += '<p>Price: </p>' 
+    grid += '</div>'
+
+    grid += '<div id="details-info-values">'
+    grid += '<p>' + vehicle.inv_make + '</p>'
+    grid += '<p>' + vehicle.inv_model + '</p>'
+    grid += '<p>' + vehicle.inv_year + '</p>'
+    grid += '<p>' + vehicle.inv_color + '</p>'
+    grid += '<p>' + vehicle.classification_name + '</p>'
+    grid += '<p>' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>'
+    grid += '<p>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>'
+    grid += '</div>'
+    
+    grid += '</div>'
+        
+    grid += '</div>'
+  
+    grid += '<hr>'
+  } else { 
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
+
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */

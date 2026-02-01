@@ -190,6 +190,46 @@ nav ul a {
 }
 /* #endregion*/
 
+/* #region Vehicle Details */
+
+#inv-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1rem 0;
+}
+#details-picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+#details-picture img {
+  width: 100%;
+  border-radius: 5px;
+}
+#details-info {
+  background-color: rgb(185, 217, 228);
+  border-radius: 5px;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: .5rem;
+  padding: 0 2rem;
+  height: 100%;
+}
+#details-info-labels {
+  text-align: right;
+}
+#details-info-labels p{
+  font-weight: bold;
+}
+
+/* #endregion */
+
 
 /* MEDIUM VIEW */
 @media (min-width: 500px) {
@@ -208,10 +248,12 @@ nav ul a {
 
   }
   /* #endregion*/
+
 }
 
 /* LARGER VIEW */
 @media (min-width: 800px) {
+  /* #region Body*/
   body>div {
     width: 1200px;
   }
@@ -222,4 +264,14 @@ nav ul a {
     flex: 1;
     padding: 1rem;
   }
+  /* #endregion*/
+
+  /* #region Vehicle Details */
+  #inv-details {
+    flex-direction: row;
+  }
+  #details-picture {
+    width: 50%;
+  }
+  /* #endregion */
 }
