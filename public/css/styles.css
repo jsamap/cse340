@@ -5,15 +5,17 @@
   box-sizing: border-box;
 }
 
-/* #region Fonts */
+/* #region Fonts and Colors */
 :root {
     --heading-font: "Merriweather", serif;
     --body-font: "Roboto", sans-serif;
+    --primary-dark: #097795;
+    --primary-light: #0cb8e8;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font);
 }
-p, a, span {
+p, a, span, label, input, li {
   font-family: var(--body-font);
 }
 /* #endregion */
@@ -27,11 +29,11 @@ body>div {
   flex-flow: column;
 
   background-color: white;
-  padding: 1rem;
+  padding: .5rem;
 }
 main {
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 .5rem;
 }
 /* #endregion*/
 
@@ -52,7 +54,7 @@ header a {
 
 /* #region Navigation*/
 nav {
-width: 95%;
+width: 100%;
 }
 nav ul {
   width: 100%;
@@ -89,7 +91,7 @@ nav ul a {
   top: 220px;
 
   background-color: rgba(255,255,255,0.75);
-  color: #097795;
+  color: var(--primary-dark);
 }
 .banner-details>* {
   margin: 0;
@@ -104,7 +106,7 @@ nav ul a {
   font-weight: bold;
   text-decoration: none;
   box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.6);
-  background-color: #0cb8e8;
+  background-color: var(--primary-light);
   padding: 1rem;
   text-align: center;
   margin-top: 1rem;
@@ -230,6 +232,89 @@ nav ul a {
 
 /* #endregion */
 
+/* #region Account: Login */
+form.login {
+  padding: 1rem;
+  padding-top: 2rem;
+
+  display: flex;
+  flex-flow: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+form.login div {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+}
+form.login label{
+  font-size: 1.2rem;
+  width: 100%;
+  text-align: center;
+}
+form.login input{
+  padding: 1rem;
+  font-size: 1.2rem;
+  width: 100%;
+  min-width: 250px;
+  border-radius: 5px;
+  border: 2px solid gray;
+}
+form.login input:user-invalid {
+  border: 2px solid red;;
+}
+form.login input[type="submit"]{
+  font-size: 1.2rem;
+  max-width: 150px;
+  background-color: var(--primary-dark);
+  border: 1px solid white;
+  color: white;
+}
+form.login input[type="submit"]:hover{
+  border: 1px solid gray;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+}
+
+form.login p{
+  font-size: 1.2rem;
+}
+form.login a{
+  text-decoration: none;
+}
+form.login a:hover{
+  font-weight: bold;
+}
+
+.req {
+  color: red;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+#messages {
+  font-size: 1rem;
+}
+.form-success {
+  color: green;
+}
+.form-fail {
+  color: darkred;
+}
+.hint {
+  color: #666;
+  margin: .5rem 0;
+  min-width: 250px;
+  text-align: center;
+}
+
+/* #endregion */
+
+
 
 /* MEDIUM VIEW */
 @media (min-width: 500px) {
@@ -246,9 +331,18 @@ nav ul a {
     border: 5px solid #0cb8e8;
     border-radius: 15px;
 
+    width: 100%;
+    padding: 2rem;
   }
   /* #endregion*/
-
+  /* #region Login / Register */
+  form.login label{
+    text-align: left;
+  }
+  .hint {
+    text-align: left;
+  }
+  /* #endregion */
 }
 
 /* LARGER VIEW */
