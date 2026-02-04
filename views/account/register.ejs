@@ -4,17 +4,17 @@
     
     <div>
         <label for="account_firstname">First Name<abbr class="req" title="required"> *</abbr></label>
-        <input name="account_firstname" id="account_firstname" type="text" required placeholder="Enter your first name">
+        <input name="account_firstname" id="account_firstname" type="text" required placeholder="Enter your first name" value="<%= locals.account_firstname %>">
     </div>
     
     <div>
         <label for="account_lastname">Last Name<abbr class="req" title="required"> *</abbr></label>
-        <input name="account_lastname" id="account_lastname" type="text" required placeholder="Enter your last name">
+        <input name="account_lastname" id="account_lastname" type="text" required placeholder="Enter your last name" value="<%= locals.account_lastname %>">
     </div>
 
     <div>
         <label for="account_email">Email<abbr class="req" title="required"> *</abbr></label>
-        <input name="account_email" id="account_email" type="email" required placeholder="Enter your email">
+        <input name="account_email" id="account_email" type="email" required placeholder="Enter your email" value="<%= locals.account_email %>">
     </div>
     
     <div>
