@@ -6,15 +6,28 @@ const utilities = require("../utilities/")
  * ************************** */
 async function buildByClassificationId (req, res, next) {
   const classification_id = req.params.classificationId
+  
+  
+  let classification_name = null
+  try{
+    const classification = await invModel.getClassificationById(classification_id)
+    classification_name = classification.classification_name
+  } catch {
+    console.log(`Error getting classification name with ID: ${classification_id}`)
+    classification_name = " "
+  }
+  
   const data = await invModel.getInventoryByClassificationId(classification_id)
-  const grid = await utilities.buildClassificationGrid(data)
+  let grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
-  const className = data[0].classification_name
-  res.render("./inventory/classification", {
-    title: className + " vehicles",
-    nav,
-    grid,
-  })
+
+  if (data){
+    res.render("./inventory/classification", {
+      title: classification_name + " Vehicles",
+      nav,
+      grid,
+    })
+  }   
 }
 
 
@@ -68,7 +81,6 @@ async function buildAddInventory (req, res, next) {
   let nav = await utilities.getNav()
   let classificationDropdown = await utilities.buildClassificationList()
 
-
   res.render("inventory/add-inventory", {
     title: "Add a new vehicle to the inventory",
     nav,
@@ -85,10 +97,13 @@ async function addClassification (req, res) {
 
   if (addResult) {
     req.flash("form-success",`New classification added: ${classification_name}`)
-    // res.redirect("/inv")
-    res.status(201).render("./", {
+    // res.redirect("/inv")let nav = await utilities.getNav()
+  
+    let content = await utilities.getManagementOptions();
+    res.status(201).render("inventory/management", {
       title: "Management",
       nav,
+      content,
     })
   } else {
     req.flash("form-fail", "Sorry, failed to add the new classification.")
