@@ -107,6 +107,38 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
+Util.getManagementOptions = async function (requ, res, next) {
+  let options =
+  '<div class="mgt-main">'+
+  ' <h3>Select the item you need to add:</h3>'+
+  ' <div>'+
+  '     <a href="/inv/management/classification">Classification</a>'+
+  '     <a href="/inv/management/inventory">Inventory</a>'+
+  ' </div>'+
+  '</div>'
+  return options
+}
+Util.getAddClassification = async function (requ, res, next) {
+  let options =
+  '<div class="mgt-main">'+
+  ' <h3>Add Classification:</h3>'+
+  ' <div>'+
+  ' </div>'+
+  '</div>'
+  return options
+}
+Util.getAddInventory = async function (requ, res, next) {
+  let options =
+  '<div class="mgt-main">'+
+  ' <h3>Add Inventory:</h3>'+
+  ' <div>'+
+  ' </div>'+
+  '</div>'
+  return options
+}
+
+
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

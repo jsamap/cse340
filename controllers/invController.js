@@ -44,4 +44,37 @@ invCont.buildDetailByInvId = async function (req, res, next) {
 }
 
 
+/* ***************************
+ *  Build inventory management view
+ * ************************** */
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  console.log(`########## invController buildManagement [params]: ${req.params.table} ##########`)
+  if (req.params.table){
+    if (req.params.table == "classification") {
+      let content = await utilities.getAddClassification();
+      res.render("./inventory/management", {
+        title: "Management: Classification",
+        nav,
+        content
+      })  
+    } else if (req.params.table == "inventory") {
+      let content = await utilities.getAddInventory();
+      res.render("./inventory/management", {
+        title: "Management: Inventory",
+        nav,
+        content
+      })  
+    }
+    
+  } else {
+    let content = await utilities.getManagementOptions();
+    res.render("./inventory/management", {
+      title: "Management",
+      nav,
+      content
+    })
+  }
+}
+
 module.exports = invCont
