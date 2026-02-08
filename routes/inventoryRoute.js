@@ -22,8 +22,8 @@ router.post("/classification",
     utilities.handleErrors(invController.addClassification),
 );
 router.post("/inventory",
-    //validation.addClassificationRules(),
-    //validation.checkAddData,
+    validation.addInventoryRules(),
+    validation.checkAddInventoryData,
     utilities.handleErrors(invController.addInventory),
 );
 

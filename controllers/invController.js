@@ -68,6 +68,7 @@ async function buildAddInventory (req, res, next) {
   let nav = await utilities.getNav()
   let classificationDropdown = await utilities.buildClassificationList()
 
+
   res.render("inventory/add-inventory", {
     title: "Add a new vehicle to the inventory",
     nav,
@@ -101,7 +102,7 @@ async function addClassification (req, res) {
 
 async function addInventory (req, res) {
   const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
-  const inv_image = "/images/vehicles/no_image.jpg", inv_thumbnail = "/images/vehicles/no_image-tn.jpg"; 
+  const inv_image = "/images/vehicles/no-image.png", inv_thumbnail = "/images/vehicles/no-image-tn.png"; 
   const addResult = await invModel.addInventory( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id )
   let nav = await utilities.getNav()
 
@@ -114,11 +115,13 @@ async function addInventory (req, res) {
       nav,
     })
   } else {
-    req.flash("form-fail", "Sorry, failed to add the new classification.")
-    res.status(501).render("inventory/add-classification", {
-      title: "Add a new vehicle classification",
+    let classificationDropdown = await utilities.buildClassificationList(classification_id)
+    req.flash("form-fail", "Sorry, failed to add the new vehicle.")
+    res.status(501).render("inventory/add-inventory", {
+      title: "Add a new vehicle to the inventory",
       nav,
-      errors: null
+      errors: null,
+      classificationDropdown,
     })
   }
 }
