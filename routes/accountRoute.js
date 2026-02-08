@@ -19,7 +19,6 @@ router.post(
 )
 
 // Process the login data
-router.post("/login", utilities.handleErrors(accountController.loginAccount)
-)
+router.post("/login", utilities.handleErrors(accountController.loginAccount))
 
 module.exports = router;

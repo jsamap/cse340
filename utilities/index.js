@@ -118,24 +118,6 @@ Util.getManagementOptions = async function (requ, res, next) {
   '</div>'
   return options
 }
-Util.getAddClassification = async function (requ, res, next) {
-  let options =
-  '<div class="mgt-main">'+
-  ' <h3>Add Classification:</h3>'+
-  ' <div>'+
-  ' </div>'+
-  '</div>'
-  return options
-}
-Util.getAddInventory = async function (requ, res, next) {
-  let options =
-  '<div class="mgt-main">'+
-  ' <h3>Add Inventory:</h3>'+
-  ' <div>'+
-  ' </div>'+
-  '</div>'
-  return options
-}
 
 
 
@@ -144,6 +126,7 @@ Util.getAddInventory = async function (requ, res, next) {
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
+
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = Util

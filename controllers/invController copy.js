@@ -1,10 +1,12 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
+const invCont = {}
+
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
-async function buildByClassificationId (req, res, next) {
+invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
@@ -21,7 +23,7 @@ async function buildByClassificationId (req, res, next) {
 /* ***************************
  *  Build inventory details view
  * ************************** */
-async function buildDetailByInvId (req, res, next) {
+invCont.buildDetailByInvId = async function (req, res, next) {
   const inv_id = req.params.invId
   const data = await invModel.getInventoryDetailsByInvId(inv_id)
   // if (!data || data.length === 0){
@@ -45,35 +47,35 @@ async function buildDetailByInvId (req, res, next) {
 /* ***************************
  *  Build inventory management view
  * ************************** */
-async function buildManagement (req, res, next) {
+invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav()
   let content = await utilities.getManagementOptions();
-  res.render("inventory/management", {
+  res.render("./inventory/management", {
     title: "Management",
     nav,
     content
-  })
+  })  
 }
 
-async function buildAddClassification (req, res, next) {
+invCont.buildAddClassification = async function (req, res, next) {
   let nav = await utilities.getNav()
-  res.render("inventory/add-classification", {
+  res.render("./inventory/add-classification", {
     title: "Add a new classification",
     nav,
-    errors: null
   })
 }
 
-async function buildAddInventory (req, res, next) {
+invCont.buildAddInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
-  res.render("inventory/add-inventory", {
+  res.render("./inventory/add-inventory", {
     title: "Add an item to the inventory",
     nav,
   })
 }
 
-async function addClassification (req, res) {
+invCont.addClassification = async function (req, res) {
   const { classification_name } = req.body
+  console.log("########## POST Classification ##########")
   const addResult = await invModel.addClassification( classification_name )
 
   let nav = await utilities.getNav()
@@ -87,13 +89,12 @@ async function addClassification (req, res) {
     })
   } else {
     req.flash("form-fail", "Sorry, failed to add the new classification.")
-    res.status(501).render("inventory/add-classification", {
+    res.status(501).render("inv/classification", {
       title: "Add a new classification",
       nav,
-      errors: null
     })
   }
 }
 
 
-module.exports = { buildByClassificationId, buildDetailByInvId, buildManagement, buildAddClassification, buildAddInventory, addClassification }
+module.exports = invCont

@@ -3,6 +3,7 @@ const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController")
 const utilities = require("../utilities/index")
+const validation = require('../utilities/add-validation')
 
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
@@ -15,6 +16,11 @@ router.get("/classification", utilities.handleErrors(invController.buildAddClass
 router.get("/inventory", utilities.handleErrors(invController.buildAddInventory));
 
 
-router.post("/:table", utilities.handleErrors(invController.buildManagement));
+router.post("/classification",
+    validation.addClassificationRules(),
+    validation.checkAddData,
+    utilities.handleErrors(invController.addClassification),
+);
+
 
 module.exports = router;
