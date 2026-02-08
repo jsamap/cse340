@@ -116,8 +116,7 @@ async function addClassification (req, res) {
 }
 
 async function addInventory (req, res) {
-  const { inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
-  const inv_image = "/images/vehicles/no-image.png", inv_thumbnail = "/images/vehicles/no-image-tn.png"; 
+  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
   const addResult = await invModel.addInventory( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id )
   let nav = await utilities.getNav()
 
@@ -125,9 +124,11 @@ async function addInventory (req, res) {
 
   if (addResult) {
     req.flash("form-success",`New vehicle added: ${inv_make} ${inv_model} ${inv_year}`)
-    res.status(201).render("./", {
+    let content = await utilities.getManagementOptions();
+    res.status(201).render("inventory/management", {
       title: "Management",
       nav,
+      content,
     })
   } else {
     let classificationDropdown = await utilities.buildClassificationList(classification_id)
