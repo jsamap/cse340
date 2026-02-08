@@ -112,8 +112,8 @@ Util.getManagementOptions = async function (requ, res, next) {
   '<div class="mgt-main">'+
   ' <h3>Select the item you need to add:</h3>'+
   ' <div>'+
-  '     <a href="/inv/management/classification">Classification</a>'+
-  '     <a href="/inv/management/inventory">Inventory</a>'+
+  '     <a href="/inv/classification">Classification</a>'+
+  '     <a href="/inv/inventory">Inventory</a>'+
   ' </div>'+
   '</div>'
   return options
