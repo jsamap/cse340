@@ -32,7 +32,7 @@ validation.checkAddData = async (req, res, next) => {
     let nav = await utilities.getNav()
     res.render("inventory/add-classification", {
       errors,
-      title: "Add a new classification",
+      title: "Add a new vehicle classification",
       nav,
       classification_name,
     })
