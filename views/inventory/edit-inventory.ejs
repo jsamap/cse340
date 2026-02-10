@@ -7,7 +7,7 @@
 <%- messages() %>
 
 <div class="mgt-add-inventory">
-    <form action="/inv/inventory" method="post">
+    <form id="update-form" action="/inv/update" method="post">
   <!-- inv_make
        inv_model
        inv_year
@@ -30,7 +30,7 @@
         <input type="text" required name="inv_year" id="inv_year" pattern="[0-9]{4}" title="Year in 4 numbers format" value="<%= locals.inv_year %>" placeholder="4-digit year">
 
         <label for="inv_description">Description: </label>
-        <textarea required name="inv_description" id="inv_description"><%= locals.inv_description %></textarea>
+        <textarea required name="inv_description" id="inv_description" ><%= locals.inv_description %></textarea>
 
 <!--    <label for="inv_image">Image URL: </label>
         <input type="text" required name="inv_image" id="inv_image" value="<%= //locals.inv_image %>">
@@ -55,8 +55,11 @@
         
         <label for="classification_id">Classification name: </label>
         <%- classificationDropdown %>
+        <input type="hidden" name="inv_id"
+            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+        <% } %>>
 
-        <input type="submit" value="Save">
+        <input id="update-button" type="submit" value="Update" disabled>
 
         <% if (errors) { %>
         <ul class="notice">
@@ -68,3 +71,4 @@
     </form>
 </div>
 
+<script src="../../js/inv-update.js"></script>
