@@ -119,6 +119,31 @@ async function buildUpdateInventory (req, res, next) {
   })
 }
 
+async function buildDeleteInventory (req, res, next) {
+  const inv_id = req.params.invId
+  const item = (await invModel.getInventoryDetailsByInvId(inv_id))[0]
+  
+  const name = `${item.inv_make} ${item.inv_model}`
+
+  let nav = await utilities.getNav()
+  const classification_name = (invModel.getClassificationById(item.classification_id)).classification_name
+
+  res.render("inventory/delete-inventory", {
+    title: "Delete vehicle: " + name,
+    nav,
+    errors: null,
+    inv_id: item.inv_id,
+    inv_make: item.inv_make,
+    inv_model: item.inv_model,
+    inv_year: item.inv_year,
+    inv_image: item.inv_image,
+    inv_price: item.inv_price,
+    inv_miles: item.inv_miles,
+    inv_color: item.inv_color,
+    classification_name: classification_name,
+  })
+}
+
 async function addClassification (req, res) {
   const { classification_name } = req.body
   const addResult = await invModel.addClassification( classification_name )
@@ -233,6 +258,40 @@ async function updateInventory (req, res, next) {
 }
 
 /* ***************************
+ *  Delete Inventory Data
+ * ************************** */
+async function deleteInventory (req, res, next) {
+  let nav = await utilities.getNav()
+  const { inv_id } = req.body
+
+  const deleteResult = await invModel.deleteInventory( inv_id )
+
+  if (deleteResult) {
+    req.flash("form-success", `${deleteResult.inv_make} ${deleteResult.inv_model} was successfully deleted.`)
+    res.redirect("/inv/")
+  } else {
+    const item = (await invModel.getInventoryDetailsByInvId(inv_id))[0]
+    const classification_name = (invModel.getClassificationById(item.classification_id)).classification_name
+
+    req.flash("notice", "Sorry, the insert failed.")
+    res.status(501).render("inventory/delete-inventory", {
+      title: `Delete vehicle: ${inv_make} ${inv_model}`,
+      nav,
+      errors: null,
+      inv_id: item.inv_id,
+      inv_make: item.inv_make,
+      inv_model: item.inv_model,
+      inv_year: item.inv_year,
+      inv_image: item.inv_image,
+      inv_price: item.inv_price,
+      inv_miles: item.inv_miles,
+      inv_color: item.inv_color,
+      classification_name: classification_name,
+    })
+  }
+}
+
+/* ***************************
  *  Return Inventory by Classification As JSON
  * ************************** */
 async function getInventoryJSON (req, res, next) {
@@ -246,4 +305,4 @@ async function getInventoryJSON (req, res, next) {
 }
 
 
-module.exports = { buildByClassificationId, buildDetailByInvId, buildManagement, buildAddClassification, buildAddInventory, buildUpdateInventory, updateInventory, addClassification, addInventory, getInventoryJSON }
+module.exports = { buildByClassificationId, buildDetailByInvId, buildManagement, buildAddClassification, buildAddInventory, buildUpdateInventory, buildDeleteInventory, addClassification, addInventory, updateInventory, deleteInventory, getInventoryJSON }

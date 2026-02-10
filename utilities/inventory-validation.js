@@ -97,7 +97,7 @@ validation.addInventoryRules = () => {
 /*  **********************************
  *  Update Inventory | Validations
  * ********************************* */
-validation.addUpdateRules = () => {
+validation.updateInventoryRules = () => {
   return [
     body("inv_id")
       .trim()

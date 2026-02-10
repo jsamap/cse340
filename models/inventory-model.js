@@ -54,6 +54,8 @@ async function getInventoryDetailsByInvId(inv_id) {
   }
 }
 
+
+
 async function addClassification(classification_name) {
   try {
     const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *"
@@ -110,6 +112,20 @@ async function updateInventory(
   }
 }
 
+/* ***************************
+ *  Delete Inventory Data
+ * ************************** */
+async function deleteInventory( inv_id ) {
+  try {
+    const sql = "DELETE FROM public.inventory WHERE inv_id = $1 RETURNING *"
+    const data = await pool.query(sql, [inv_id])
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+
 async function checkExistingClassification(classification_name) {
   try {
     const sql = "SELECT * FROM classification WHERE classification_name = $1"
@@ -130,4 +146,4 @@ async function checkExistingInventory(inv_make, inv_model, inv_year, inv_descrip
   }
 }
 
-module.exports = {getClassifications, getClassificationById, getInventoryByClassificationId, getInventoryDetailsByInvId, addClassification, addInventory, updateInventory, checkExistingClassification, checkExistingInventory};
+module.exports = {getClassifications, getClassificationById, getInventoryByClassificationId, getInventoryDetailsByInvId, addClassification, addInventory, updateInventory, deleteInventory, checkExistingClassification, checkExistingInventory};
