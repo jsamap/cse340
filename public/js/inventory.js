@@ -42,19 +42,3 @@ function buildInventoryList(data) {
  // Display the contents in the Inventory Management view 
  inventoryDisplay.innerHTML = dataTable; 
 }
-
-
-fetch("/inv/getInventory/4")
-.then(function (response) {
-    if (response.ok) {
-    return response.json();
-    }
-    throw Error("Network response was not OK");
-})
-.then(function (data) {
-    console.log(data);
-    buildInventoryList(data);
-})
-.catch(function (error) {
-    console.log("There was a problem: ", error.message);
-});

@@ -40,6 +40,21 @@ async function buildAccount(req, res, next) {
   })
 }
 
+/* ****************************************
+*  Deliver Update view
+* *************************************** */
+async function buildUpdate (req, res, next) {
+  const account_id = req.params.account_id
+  let nav = await utilities.getNav()
+  res.render("account/update", {
+    title: "Account Update",
+    nav,
+    errors: null,
+    account_id: account_id,
+  })
+}
+
+
 
 /* ****************************************
 *  Process Registration
@@ -171,5 +186,78 @@ async function accountLogout(req, res) { // OLD FUNCTION
 }
 
 
+/* ****************************************
+*  Process Account Update
+* *************************************** */
+async function updateAccount(req, res) {
+  const { account_id, account_firstname, account_lastname, account_email } = req.body
+  const accountData = await accountModel.updateAccount(account_id, account_firstname, account_lastname, account_email)
+  if (!accountData) {
+    const nav = await utilities.getNav()
+    req.flash("notice", "Update failed. Please review your information.")
+    res.status(400).render("account/update", {
+      title: "Account Update",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+    return
+  } else {
+    // UPDATE COOKIE
+    delete accountData.account_password
+    const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
+    if(process.env.NODE_ENV === 'development') {
+      console.log("DEV")
+      res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+    } else {
+      console.log("PROD")
+      res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+    }
+    
+    req.flash("form-success", "Your information has been updated.")
+    res.redirect(`/account/update/${account_id}`)
+  }
+}
 
-module.exports = { buildAccount, buildRegister, buildLogin, registerAccount, loginAccount, accountLogin, accountLogout }
+/* ****************************************
+*  Process Password Update
+* *************************************** */
+async function updatePassword(req, res) {
+  const { account_id, account_password } = req.body
+
+  // Hash the password before storing
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the registration. (HASHPW)')
+    res.status(500).render("account/register", {
+      title: "Registration",
+      nav,
+      errors: null,
+    })
+  }
+
+  const accountData = await accountModel.updatePassword(account_id, hashedPassword)
+  if (!accountData) {
+    const nav = await utilities.getNav()
+    req.flash("notice", "Password update failed. Please try again.")
+    res.status(400).render("account/update", {
+      title: "Account Update",
+      nav,
+      errors: null,
+      account_id,
+    })
+    return
+  } else {
+    req.flash("form-success", "Your password has been updated.")
+    res.redirect(`/account/update/${account_id}`)
+  }
+}
+
+
+module.exports = { buildAccount, buildRegister, buildLogin, buildUpdate, registerAccount, loginAccount, accountLogin, accountLogout, updateAccount, updatePassword }

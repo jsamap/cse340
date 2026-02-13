@@ -59,6 +59,7 @@ async function buildDetailByInvId (req, res, next) {
  *  Build inventory management view
  * ************************** */
 async function buildManagement (req, res, next) {
+  console.log("********************************************")
   let nav = await utilities.getNav()
   let content = await utilities.getManagementOptions();
   const classificationSelect = await utilities.buildClassificationList()

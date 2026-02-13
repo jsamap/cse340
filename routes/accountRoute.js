@@ -14,6 +14,8 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 router.get("/logout", utilities.handleErrors(accountController.accountLogout));
 
+router.get("/update/:account_id", utilities.handleErrors(accountController.buildUpdate));
+
 // Process the registration data
 router.post(
   "/register",
@@ -29,5 +31,17 @@ router.post(
   validate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
 )
+
+router.post(
+  "/update",
+  validate.accountUpdateRules(),
+  validate.checkAccountUpdateData,
+  utilities.handleErrors(accountController.updateAccount));
+
+router.post(
+  "/password",
+  validate.passwordUpdateRules(),
+  validate.checkPasswordUpdateData,
+  utilities.handleErrors(accountController.updatePassword));
 
 module.exports = router;
