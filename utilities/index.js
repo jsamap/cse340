@@ -184,6 +184,21 @@ Util.checkLogin = (req, res, next) => {
   }
 };
 
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkIfAdminOrEmployee = (req, res, next) => {
+  console.log(" #####################################")
+  console.log(res.locals.accountData)
+  if (res.locals.accountData.account_type == "Admin" || res.locals.accountData.account_type == "Employee") {
+    next();
+  } else {
+    res.clearCookie('jwt')
+    req.flash("notice",`You don't have access to this site, please login as Admin or Employee.`)
+    res.redirect("/")
+  }
+}
+
 
 /* ****************************************
  * Middleware For Handling Errors

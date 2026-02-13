@@ -165,10 +165,9 @@ async function accountLogin(req, res) {
 *  Process Logout
 * *************************************** */
 async function accountLogout(req, res) { // OLD FUNCTION
-  res.clearCookie('jwt');
+  res.clearCookie('jwt')
   req.flash("form-success",`Logout success.`)
   res.redirect("/")
-
 }
 
 
