@@ -12,6 +12,7 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
 
+router.get("/logout", utilities.handleErrors(accountController.accountLogout));
 
 // Process the registration data
 router.post(

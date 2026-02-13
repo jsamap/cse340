@@ -32,7 +32,6 @@ async function buildRegister(req, res, next) {
 *  Deliver Account view
 * *************************************** */
 async function buildAccount(req, res, next) {
-      console.log(" ########### buildAccount")
   let nav = await utilities.getNav()
   res.render("account/account", {
     title: "Account",
@@ -123,6 +122,7 @@ async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
+
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.")
     res.status(400).render("account/login", {
@@ -144,8 +144,6 @@ async function accountLogin(req, res) {
         console.log("PROD")
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
-      console.log("###########")
-      console.log("accountLogin: res.cookie('jwt')")
 
       return res.redirect("/account/")
     }
@@ -163,5 +161,16 @@ async function accountLogin(req, res) {
   }
 }
 
+/* ****************************************
+*  Process Logout
+* *************************************** */
+async function accountLogout(req, res) { // OLD FUNCTION
+  res.clearCookie('jwt');
+  req.flash("form-success",`Logout success.`)
+  res.redirect("/")
 
-module.exports = { buildLogin, buildRegister, registerAccount, loginAccount, accountLogin, buildAccount }
+}
+
+
+
+module.exports = { buildAccount, buildRegister, buildLogin, registerAccount, loginAccount, accountLogin, accountLogout }

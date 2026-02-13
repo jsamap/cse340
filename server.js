@@ -53,6 +53,7 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(cookieParser())
 app.use(utilities.checkJWTToken)
 
+
 /* ***********************
  * Routes
  *************************/
