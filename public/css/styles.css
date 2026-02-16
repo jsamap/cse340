@@ -48,13 +48,11 @@ header a {
   text-decoration: none;
   color: black;
 }
-.siteName {
-  & a{
-    display: block;
-    font-size: 2rem;
-    height: 100%;
-    align-content: center;
-  }
+.siteName a{
+  display: block;
+  font-size: 2rem;
+  height: 100%;
+  align-content: center;
 }
 #tools {
   display: flex;
@@ -85,6 +83,7 @@ nav ul {
 }
 nav ul a {
   text-decoration: none;
+  padding: 0 .5rem;
   color: white; 
 }
 /* #endregion*/
@@ -338,37 +337,30 @@ form.login a:hover{
 /* #endregion */
 
 /* #region Management */
-.mgt-main {
-  & div {
-    display: flex;
-    flex-flow: row;
-    gap: 1.5rem;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    flex-wrap: wrap;
-    container-type: inline-size;
-
-    & a{
-      text-decoration: none;
-      border-radius: 5px;
-      background-color: #075e76;
-      font-size: 1.2rem;
-      color: white;
-      min-width: 200px;
-      max-width: 250px;
-      padding: 1rem;
-      text-align: center;
-      &:hover {
-        box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
-        font-weight: bold;
-      }
-    }
-    @media screen and (min-width: 580px) {
-      justify-content: left;
-      align-items: start;
-    }
-  }
+.mgt-main div {
+  display: flex;
+  flex-flow: row;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  flex-wrap: wrap;
+  /* container-type: inline-size; */
+}
+.mgt-main div a{
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #075e76;
+  font-size: 1.2rem;
+  color: white;
+  min-width: 200px;
+  max-width: 250px;
+  padding: 1rem;
+  text-align: center;
+}
+.mgt-main div a:hover {
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
+  font-weight: bold;
 }
 .mgt-inv {
   display: flex;
@@ -376,23 +368,16 @@ form.login a:hover{
   justify-content: center;
   align-items: center;
   gap: 2rem;
-
-  & select {
-    max-width: 300px;
-  }
-  & table {
-    table-layout: fixed;
-    max-width: 500px;
-    & tbody {
-      tr {
-        height: 50px;
-      }
-    }
-  }
-  @media screen and (min-width: 500px) {
-    justify-content: left;
-    align-items: start;
-  }
+}
+.mgt-inv select {
+  max-width: 300px;
+}
+.mgt-inv table {
+  table-layout: fixed;
+  max-width: 500px;
+}
+.mgt-inv table tbody tr {
+  height: 50px;
 }
 .col-vehicle {
   width: 300px;
@@ -407,13 +392,13 @@ form.login a:hover{
   color: white;
   padding: .5rem;
   text-align: center;
-  &.delete{
-    background-color: darkred;
-  }
-  &:hover {
-    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
-    font-weight: bold;
-  }
+}
+.delete{
+  background-color: darkred;
+}
+.options-button:hover {
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
+  font-weight: bold;
 }
 noscript {
   color: red;
@@ -425,45 +410,41 @@ noscript {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  & form {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    max-width: 400px;
-
-    & label{
-      font-size: 1.2rem;
-      width: 100%;
-      text-align: left;
-    }
-    
-    & input[type="text"]{
-      margin-top: .5rem;
-      font-size: 1.2rem;
-      border-radius: 5px;
-      padding: 1rem;
-    }
-    
-    & input[type="submit"]{
-      font-size: 1.2rem;
-      border: 0;
-      border-radius: 5px;
-      background-color: #097795;
-      color: white;
-      min-width: 100px;
-      max-width: 150px;
-      margin-top: 2rem;
-      padding: 1rem;
-      text-align: center;
-      &:hover {
-        box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
-        font-weight: bold;
-      }
-    }
-  }
+}
+.mgt-add-classification form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  max-width: 400px;
+}
+.mgt-add-classification form label{
+  font-size: 1.2rem;
+  width: 100%;
+  text-align: left;
+}
+.mgt-add-classification form input[type="text"]{
+  margin-top: .5rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 1rem;
+}   
+.mgt-add-classification form input[type="submit"]{
+  font-size: 1.2rem;
+  border: 0;
+  border-radius: 5px;
+  background-color: #097795;
+  color: white;
+  min-width: 100px;
+  max-width: 150px;
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+.mgt-add-classification form input[type="submit"]:hover {
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
+  font-weight: bold;
 }
 /* #endregion */
 
@@ -472,127 +453,120 @@ noscript {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  & form {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    width: 100%;
-    max-width: 600px;
-
-    & label{
-      font-size: 1.2rem;
-      font-weight: bold;
-      width: 100%;
-      text-align: left;
-      margin-top: 1.5rem;
-    }
-    
-    & input[type="text"], textarea, select{
-      margin-top: .5rem;
-      font-size: 1.2rem;
-      border-radius: 5px;
-      padding: 1rem;
-      width: 100%;
-      border: 1px solid black;
-    }
-    
-    & textarea {
-      height: 200px;
-    }
-    
-    & input[type="submit"]{
-      font-size: 1.2rem;
-      border: 0;
-      border-radius: 5px;
-      background-color: #097795;
-      color: white;
-      min-width: 100px;
-      max-width: 150px;
-      margin-top: 2rem;
-      padding: 1rem;
-      text-align: center;
-      &:hover {
-        box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
-        font-weight: bold;
-      }
-      &:disabled{
-        background-color: rgb(70, 70, 70);
-        &:hover {
-          box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-          font-weight: normal;
-        }
-      }
-    }
-  }
+}
+.mgt-add-inventory form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+.mgt-add-inventory form label{
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  margin-top: 1.5rem;
+}
+.mgt-add-inventory form input[type="text"], textarea, select{
+  margin-top: .5rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid black;
+}
+.mgt-add-inventory form textarea {
+  height: 200px;
+}
+.mgt-add-inventory form input[type="submit"]{
+  font-size: 1.2rem;
+  border: 0;
+  border-radius: 5px;
+  background-color: #097795;
+  color: white;
+  min-width: 100px;
+  max-width: 150px;
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+.mgt-add-inventory form input[type="submit"]:hover {
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
+  font-weight: bold;
+}
+.mgt-add-inventory form input[type="submit"]:disabled{
+  background-color: rgb(70, 70, 70);
+}
+.mgt-add-inventory form input[type="submit"]:disabled:hover {
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+  font-weight: normal;
 }
 
 .mgt-delete-inventory {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  & form {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    width: 100%;
-    max-width: 600px;
-
-    & img {
-      width: auto;
-      max-width: 100%;
-      max-height: 200px;
-    }
-    & label{
-      font-size: 1.2rem;
-      font-weight: bold;
-      width: 100%;
-      text-align: left;
-      margin-top: 1.5rem;
-    }
+}
+.mgt-delete-inventory form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+.mgt-delete-inventory form img {
+  width: auto;
+  max-width: 100%;
+  max-height: 200px;
+}
+.mgt-delete-inventory form label{
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  margin-top: 1.5rem;
+}
     
-    & input[type="text"], textarea, select{
-      margin-top: .5rem;
-      font-size: 1.2rem;
-      border-radius: 5px;
-      padding: 1rem;
-      width: 100%;
-      border: 1px solid black;
-    }
+.mgt-delete-inventory form input[type="text"], textarea, select{
+  margin-top: .5rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid black;
+}
     
-    & textarea {
-      height: 200px;
-    }
+.mgt-delete-inventory form textarea {
+  height: 200px;
+}
     
-    & input[type="submit"]{
-      font-size: 1.2rem;
-      border: 0;
-      border-radius: 5px;
-      background-color: darkred;
-      color: white;
-      min-width: 100px;
-      max-width: 150px;
-      margin-top: 2rem;
-      padding: 1rem;
-      text-align: center;
-      &:hover {
-        box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
-        font-weight: bold;
-      }
-      &:disabled{
-        background-color: rgb(70, 70, 70);
-        &:hover {
-          box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-          font-weight: normal;
-        }
-      }
-    }
-  }
+.mgt-delete-inventory form input[type="submit"]{
+  font-size: 1.2rem;
+  border: 0;
+  border-radius: 5px;
+  background-color: darkred;
+  color: white;
+  min-width: 100px;
+  max-width: 150px;
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+.mgt-delete-inventory form input[type="submit"]:hover {
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
+  font-weight: bold;
+}
+.mgt-delete-inventory form input[type="submit"]:disabled{
+  background-color: rgb(70, 70, 70);
+}
+.mgt-delete-inventory form input[type="submit"]:disabled:hover {
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+  font-weight: normal;
 }
 /* #endregion */
 
@@ -603,70 +577,70 @@ noscript {
   justify-content: center;
   align-items: stretch;
   gap: 3rem;
+}
+.mgt-update-account form {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+.mgt-update-account form label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  margin-top: 1.5rem;
+}
 
-  & form {
-    display: flex;
-    flex-flow: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 1rem;
-    height: 100%;
-    width: 100%;
-    max-width: 600px;
-    border: 1px solid gray;
-    border-radius: 5px;
+.mgt-update-account form input[type="text"], input[type="email"], input[type="password"], textarea, select{
+  margin-top: .5rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid black;
+}
+    
+.mgt-update-account form textarea {
+  height: 200px;
+}
+    
+.mgt-update-account form input[type="submit"]{
+  font-size: 1.2rem;
+  border: 0;
+  border-radius: 5px;
+  background-color: #097795;
+  color: white;
+  min-width: 150px;
+  max-width: 200px;
+  margin-top: 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+.mgt-update-account form input[type="submit"]:hover {
+  box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
+  font-weight: bold;
+}
+.mgt-update-account form input[type="submit"]:disabled{
+  background-color: rgb(70, 70, 70);
+}
+.mgt-update-account form input[type="submit"]:disabled:hover {
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+  font-weight: normal;
+}
 
-    & label{
-      font-size: 1.2rem;
-      font-weight: bold;
-      width: 100%;
-      text-align: left;
-      margin-top: 1.5rem;
-    }
-    
-    & input[type="text"], input[type="email"], input[type="password"], textarea, select{
-      margin-top: .5rem;
-      font-size: 1.2rem;
-      border-radius: 5px;
-      padding: 1rem;
-      width: 100%;
-      border: 1px solid black;
-    }
-    
-    & textarea {
-      height: 200px;
-    }
-    
-    & input[type="submit"]{
-      font-size: 1.2rem;
-      border: 0;
-      border-radius: 5px;
-      background-color: #097795;
-      color: white;
-      min-width: 150px;
-      max-width: 200px;
-      margin-top: 2rem;
-      padding: 1rem;
-      text-align: center;
-      &:hover {
-        box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.6);
-        font-weight: bold;
-      }
-      &:disabled{
-        background-color: rgb(70, 70, 70);
-        &:hover {
-          box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
-          font-weight: normal;
-        }
-      }
-    }
-  }
-  @media (min-width: 800px) {
-    flex-flow: row;
-  }
+@media (min-width: 800px) {
+
 }
 
 /* #endregion */
+
 
 /* MEDIUM VIEW */
 @media (min-width: 500px) {
@@ -687,12 +661,24 @@ noscript {
     padding: 2rem;
   }
   /* #endregion*/
+  
   /* #region Login / Register */
   form.login label{
     text-align: left;
   }
   .hint {
     text-align: left;
+  }
+  /* #endregion */
+  
+  /* #region Management: Inventory */
+  .mgt-inv {
+    justify-content: left;
+    align-items: start;
+  }
+  .mgt-main div {
+    justify-content: left;
+    align-items: start;
   }
   /* #endregion */
 }
@@ -720,4 +706,10 @@ noscript {
     width: 50%;
   }
   /* #endregion */
+  /* #region Account Update */
+    .mgt-update-account {
+    flex-flow: row;
+  }
+  /* #endregion */
+
 }

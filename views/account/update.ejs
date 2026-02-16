@@ -18,7 +18,7 @@
         <input type="text" name="account_lastname" id="account_lastname" value="<%= locals.accountData.account_lastname %>" required>
         <label for="account_email">Email:</label>
         <input type="email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" name="account_email" id="account_email" value="<%= locals.accountData.account_email %>" required>
-        <input type="hidden" name="account_id" id="account_id" value="<%= account_id %>" required>
+        <input type="hidden" name="account_id" id="account_id" value="<%= account_id %>">
         <input type="submit" value="Update information">
     </form>
 
@@ -30,7 +30,7 @@
             pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{12,}$">
         <p class="hint">Must be at least 12 characters, include 1 uppercase, 1 number, and 1 special character.</p>
 
-        <input type="hidden" name="account_id" id="account_id" value="<%= account_id %>" required>
+        <input type="hidden" name="account_id" id="account_password_id" value="<%= account_id %>">
         <input type="submit" value="Change password">
     </form>
 </div>
