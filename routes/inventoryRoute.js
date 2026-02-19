@@ -12,11 +12,15 @@ router.get("/detail/:invId", utilities.handleErrors(invController.buildDetailByI
 
 // Display Management views
 router.get("/classification", utilities.checkLogin, utilities.checkIfAdminOrEmployee, utilities.handleErrors(invController.buildAddClassification));
+router.get("/update-classification/:classId", utilities.checkLogin, utilities.checkIfAdminOrEmployee, utilities.handleErrors(invController.buildUpdateClassification));
 router.get("/inventory", utilities.checkLogin, utilities.checkIfAdminOrEmployee, utilities.handleErrors(invController.buildAddInventory));
 router.get("/edit/:invId", utilities.checkLogin, utilities.checkIfAdminOrEmployee, utilities.handleErrors(invController.buildUpdateInventory));
 router.get("/delete/:invId", utilities.checkLogin, utilities.checkIfAdminOrEmployee, utilities.handleErrors(invController.buildDeleteInventory));
 
+// Get inventory by classification_id (used in inventory.js to fectch data and display it in the inventory table)
 router.get("/getInventory/:classification_id", utilities.checkLogin, utilities.checkIfAdminOrEmployee, utilities.handleErrors(invController.getInventoryJSON))
+
+router.get("/getClassifications/", utilities.checkLogin, utilities.checkIfAdminOrEmployee, utilities.handleErrors(invController.getClassificationsJSON))
 
 // Management: Process Data (Add / Update)
 router.post("/classification",
@@ -25,6 +29,13 @@ router.post("/classification",
     validation.addClassificationRules(),
     validation.checkAddData,
     utilities.handleErrors(invController.addClassification),
+)
+router.post("/update-classification/", 
+    utilities.checkLogin, 
+    utilities.checkIfAdminOrEmployee,
+    validation.updateClassificationRules(),
+    validation.checkUpdateClassificationData,
+    utilities.handleErrors(invController.updateClassification),
 )
 router.post("/inventory",
     utilities.checkLogin, 

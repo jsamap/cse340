@@ -30,6 +30,24 @@ async function buildByClassificationId (req, res, next) {
   }   
 }
 
+/* ***************************
+ *  Build classification update view
+ * ************************** */
+async function buildUpdateClassification (req, res, next) {
+  const classification_id = req.params.classId
+  const item = (await invModel.getClassificationById(classification_id))
+  
+  let nav = await utilities.getNav()
+
+  res.render("inventory/update-classification", {
+    title: "Update classification: " + item.classification_name,
+    nav,
+    errors: null,
+    classification_id: item.classification_id,
+    classification_name: item.classification_name,
+  })
+}
+
 
 /* ***************************
  *  Build inventory details view
@@ -171,6 +189,91 @@ async function addClassification (req, res) {
   }
 }
 
+/* ***************************
+ *  Update Classification Data
+ * ************************** */
+async function updateClassification (req, res, next) {
+  let nav = await utilities.getNav()
+  const { classification_id, classification_name } = req.body
+  const updateResult = await invModel.updateClassification(classification_id, classification_name)
+
+  if (updateResult) {
+    req.flash("form-success", `The classification was successfully updated.`)
+    res.redirect("/inv/")
+  } else {
+    req.flash("notice", "Sorry, the update failed.")
+    res.status(501).render("inventory/update-classification", {
+    title: "Update vehicle: " + classification_name,
+    nav,
+    errors: null,
+    classification_id,
+    classification_name,
+    })
+  }
+}
+
+
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+async function updateInventory (req, res, next) {
+  let nav = await utilities.getNav()
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body
+  const updateResult = await invModel.updateInventory(
+    inv_id,  
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+    classification_id
+  )
+
+  if (updateResult) {
+    const itemName = updateResult.inv_make + " " + updateResult.inv_model
+    req.flash("form-success", `The ${itemName} was successfully updated.`)
+    res.redirect("/inv/")
+  } else {
+    const classificationSelect = await utilities.buildClassificationList(classification_id)
+    const itemName = `${inv_make} ${inv_model}`
+    req.flash("notice", "Sorry, the insert failed.")
+    res.status(501).render("inventory/edit-inventory", {
+    title: "Update vehicle: " + itemName,
+    nav,
+    classificationSelect: classificationSelect,
+    errors: null,
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+    })
+  }
+}
+
+
 async function addInventory (req, res) {
   const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
   const addResult = await invModel.addInventory( inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id )
@@ -305,5 +408,16 @@ async function getInventoryJSON (req, res, next) {
   }
 }
 
+/* ***************************
+ *  Return all Classifications As JSON
+ * ************************** */
+async function getClassificationsJSON (req, res, next) {
+  const classData = await invModel.getClassifications()
+  if (classData.rows[0].classification_id) {
+    return res.json(classData.rows)
+  } else {
+    next(new Error("No classification data returned"))
+  }
+}
 
-module.exports = { buildByClassificationId, buildDetailByInvId, buildManagement, buildAddClassification, buildAddInventory, buildUpdateInventory, buildDeleteInventory, addClassification, addInventory, updateInventory, deleteInventory, getInventoryJSON }
+module.exports = { buildByClassificationId, buildUpdateClassification, buildDetailByInvId, buildManagement, buildAddClassification, buildAddInventory, buildUpdateInventory, buildDeleteInventory, addClassification, updateClassification, addInventory, updateInventory, deleteInventory, getInventoryJSON, getClassificationsJSON }

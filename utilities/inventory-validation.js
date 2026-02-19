@@ -152,6 +152,48 @@ validation.updateInventoryRules = () => {
   ];
 };
 
+
+/*  **********************************
+ *  Update Classification | Validations
+ * ********************************* */
+validation.updateClassificationRules = () => {
+  return [
+    body("classification_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Failed to get the classification ID."),
+    body("classification_name")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a correct value for classification name."),
+  ];
+};
+validation.checkUpdateClassificationData = async (req, res, next) => {
+  const { classification_id, classification_name } = req.body
+
+  let errors = []
+  errors = validationResult(req)
+  console.log(errors)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    
+    req.flash("form-fail", "Sorry, failed to update the classification.")
+    res.status(501).render("inventory/update-classification", {
+      title: `Update classification: ${classification_name}`,
+      errors,
+      nav,
+      classification_id,
+      classification_name,
+    })
+    return
+  }
+  next()
+}
+
+
+
 validation.checkAddInventoryData = async (req, res, next) => {
   const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
 
@@ -184,7 +226,7 @@ validation.checkUpdateInventoryData = async (req, res, next) => {
     let nav = await utilities.getNav()
     let classificationDropdown = await utilities.buildClassificationList(classification_id)
     
-    req.flash("form-fail", "Sorry, failed to add the new vehicle.")
+    req.flash("form-fail", "Sorry, failed to update the vehicle.")
     res.status(501).render("inventory/edit-inventory", {
       title: `Update vehicle: ${inv_make} ${inv_model}`,
       errors,

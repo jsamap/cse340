@@ -1,0 +1,33 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<div class="mgt-add-inventory">
+    <form id="update-form" action="/inv/update-classification" method="post">
+  <!-- classification_id
+       classification_name -->
+
+        <label for="classification_name">Classification name: </label>
+        <input type="text" required name="classification_name" id="classification_name" value="<%= locals.classification_name %>">
+
+        <input type="hidden" name="classification_id"
+            <% if(locals.classification_id) { %> value="<%= locals.classification_id %>"
+        <% } %>>
+
+        <input id="update-button" type="submit" value="Update" disabled>
+
+        <% if (errors) { %>
+        <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <%  }) %>
+        </ul>
+        <% } %>
+    </form>
+</div>
+
+<script src="../../js/classification-update.js"></script>

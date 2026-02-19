@@ -112,6 +112,25 @@ async function updateInventory(
   }
 }
 
+
+/* ***************************
+ *  Update Classification Data
+ * ************************** */
+async function updateClassification(classification_id, classification_name) {
+  try {
+    const sql =
+      "UPDATE public.classification SET classification_name = $1 WHERE classification_id = $2 RETURNING *"
+    const data = await pool.query(sql, [
+      classification_name,
+      classification_id,
+    ])
+    return data.rows[0]
+  } catch (error) {
+    console.error("model error: " + error)
+  }
+}
+
+
 /* ***************************
  *  Delete Inventory Data
  * ************************** */
@@ -146,4 +165,4 @@ async function checkExistingInventory(inv_make, inv_model, inv_year, inv_descrip
   }
 }
 
-module.exports = {getClassifications, getClassificationById, getInventoryByClassificationId, getInventoryDetailsByInvId, addClassification, addInventory, updateInventory, deleteInventory, checkExistingClassification, checkExistingInventory};
+module.exports = {getClassifications, getClassificationById, getInventoryByClassificationId, getInventoryDetailsByInvId, addClassification, updateClassification, addInventory, updateInventory, deleteInventory, checkExistingClassification, checkExistingInventory};

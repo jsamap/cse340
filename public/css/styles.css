@@ -712,4 +712,12 @@ noscript {
   }
   /* #endregion */
 
+    /* #region Management container */
+  .mgt-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    gap: 2rem;
+  }
+  /* #endregion */
 }
